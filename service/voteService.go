@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/coaraujo/go-mongo-rabbitmq/client"
+
 	"github.com/coaraujo/go-mongo-rabbitmq/mongodb"
 
 	"github.com/coaraujo/go-mongo-rabbitmq/rabbitmq"
@@ -27,10 +29,15 @@ func (v *VoteService) SendVote(w http.ResponseWriter, r *http.Request) {
 
 	var vote domain.Vote
 	_ = json.NewDecoder(r.Body).Decode(&vote)
-	v.rabbitmq.SendVote(vote)
 
-	// json.NewEncoder(w).Encode(vote)
-	// fmt.Println("Meu voto foi: ", vote)
+	if client.Verify(&vote, r.Header.Get("x-auth")) == false {
+		fmt.Println("[VOTESERVICE] Error 401 - Unauthorized.")
+		w.WriteHeader(http.StatusUnauthorized)
+		w.Write([]byte("401 - Check the recaptcha!"))
+		return
+	}
+
+	v.rabbitmq.SendVote(vote)
 }
 
 func (v *VoteService) GetVote(w http.ResponseWriter, r *http.Request) {
