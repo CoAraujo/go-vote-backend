@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/coaraujo/go-mongo-rabbitmq/client"
+	"github.com/coaraujo/go-mongo-rabbitmq/client/recaptcha"
 
 	"github.com/coaraujo/go-mongo-rabbitmq/mongodb"
 
@@ -19,7 +19,7 @@ type VoteService struct {
 	mongodb  *mongodb.MongoDB
 }
 
-func Init(r *rabbitmq.RabbitMQ, m *mongodb.MongoDB) *VoteService {
+func NewVoteService(r *rabbitmq.RabbitMQ, m *mongodb.MongoDB) *VoteService {
 	voteService := VoteService{rabbitmq: r, mongodb: m}
 	return &voteService
 }

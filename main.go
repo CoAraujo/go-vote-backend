@@ -19,7 +19,7 @@ func main() {
 	mongoCon := *mongodb.NewConnection()
 	rabbitCon := *rabbitmq.NewConnection()
 
-	voteServ := voteService.Init(&rabbitCon, &mongoCon)
+	voteServ := voteService.NewVoteService(&rabbitCon, &mongoCon)
 
 	router := mux.NewRouter()
 	router.HandleFunc("/vote", voteServ.SendVote).Methods("POST")
