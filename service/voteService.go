@@ -5,22 +5,20 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/coaraujo/go-mongo-rabbitmq/client/recaptcha"
-
-	"github.com/coaraujo/go-mongo-rabbitmq/mongodb"
-
-	"github.com/coaraujo/go-mongo-rabbitmq/rabbitmq"
+	client "github.com/coaraujo/go-mongo-rabbitmq/client/recaptcha"
+	mongo "github.com/coaraujo/go-mongo-rabbitmq/config/mongo"
+	stream "github.com/coaraujo/go-mongo-rabbitmq/stream"
 
 	"github.com/coaraujo/go-mongo-rabbitmq/domain"
 )
 
 type VoteService struct {
-	rabbitmq *rabbitmq.RabbitMQ
-	mongodb  *mongodb.MongoDB
+	MongoDB      *mongo.MongoDB
+	RabbitStream *stream.RabbitStream
 }
 
-func NewVoteService(r *rabbitmq.RabbitMQ, m *mongodb.MongoDB) *VoteService {
-	voteService := VoteService{rabbitmq: r, mongodb: m}
+func NewVoteService(m *mongo.MongoDB, s *stream.RabbitStream) *VoteService {
+	voteService := VoteService{MongoDB: m, RabbitStream: s}
 	return &voteService
 }
 
@@ -37,7 +35,7 @@ func (v *VoteService) SendVote(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	v.rabbitmq.SendVote(vote)
+	v.RabbitStream.SendVote(vote)
 }
 
 func (v *VoteService) GetVote(w http.ResponseWriter, r *http.Request) {

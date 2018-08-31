@@ -3,8 +3,8 @@ package client
 import (
 	"fmt"
 
-	"github.com/coaraujo/go-mongo-rabbitmq/client"
-	"github.com/coaraujo/go-mongo-rabbitmq/domain"
+	client "github.com/coaraujo/go-mongo-rabbitmq/client"
+	domain "github.com/coaraujo/go-mongo-rabbitmq/domain"
 )
 
 const (

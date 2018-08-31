@@ -5,21 +5,20 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/coaraujo/go-mongo-rabbitmq/rabbitmq"
-	"github.com/coaraujo/go-mongo-rabbitmq/service"
-
-	"github.com/coaraujo/go-mongo-rabbitmq/mongodb"
-
+	mongo "github.com/coaraujo/go-mongo-rabbitmq/config/mongo"
+	rabbit "github.com/coaraujo/go-mongo-rabbitmq/config/rabbit"
+	service "github.com/coaraujo/go-mongo-rabbitmq/service"
+	stream "github.com/coaraujo/go-mongo-rabbitmq/stream"
 	"github.com/gorilla/mux"
 )
 
 func main() {
 	fmt.Println("[MAIN] Starting project...")
 
-	mongoCon := *mongodb.NewConnection()
-	rabbitCon := *rabbitmq.NewConnection()
-
-	voteServ := voteService.NewVoteService(&rabbitCon, &mongoCon)
+	mongoCon := *mongo.NewConnection()
+	rabbitCon := *rabbit.NewConnection()
+	rabbitStream := *stream.NewRabbitStream(&rabbitCon)
+	voteServ := service.NewVoteService(&mongoCon, &rabbitStream)
 
 	router := mux.NewRouter()
 	router.HandleFunc("/vote", voteServ.SendVote).Methods("POST")
