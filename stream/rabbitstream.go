@@ -11,18 +11,19 @@ import (
 	"github.com/streadway/amqp"
 )
 
-const (
-	queueGroup = "vote.groupBBB"
-)
-
 type RabbitStream struct {
-	RabbitMQ *config.RabbitMQ
-	Queue    amqp.Queue
+	RabbitMQ   *config.RabbitMQ
+	Queue      amqp.Queue
+	QueueGroup string
 }
 
-func NewRabbitStream(conn *config.RabbitMQ) *RabbitStream {
-	rabbitStream := RabbitStream{RabbitMQ: conn}
-	rabbitStream.Queue = conn.CreateQueue(queueGroup)
+func NewRabbitStream(conn *config.RabbitMQ, queue string) *RabbitStream {
+	q := "vote.groupBBB"
+	if queue != "" {
+		q = queue
+	}
+	rabbitStream := RabbitStream{RabbitMQ: conn, QueueGroup: q}
+	rabbitStream.Queue = conn.CreateQueue(q)
 	return &rabbitStream
 }
 
@@ -34,10 +35,11 @@ func (r *RabbitStream) SendVote(vote domain.Vote) {
 	reqBodyBytes.Bytes()
 
 	err := r.RabbitMQ.GetChannel().Publish(
-		"",         // exchange
-		queueGroup, // routing key
-		false,      // mandatory
-		false,      // immediate
+		"",           // exchange
+		r.QueueGroup, // routing key
+		// "teste.testando", // routing key
+		false, // mandatory
+		false, // immediate
 		amqp.Publishing{
 			ContentType: "text/plain",
 			Body:        []byte(reqBodyBytes.Bytes()),

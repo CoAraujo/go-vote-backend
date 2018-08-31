@@ -17,7 +17,8 @@ func main() {
 
 	mongoCon := *mongo.NewConnection()
 	rabbitCon := *rabbit.NewConnection()
-	rabbitStream := *stream.NewRabbitStream(&rabbitCon)
+	// rabbitStream := *stream.NewRabbitStream(&rabbitCon, "")
+	rabbitStream := *stream.NewRabbitStream(&rabbitCon, "teste.testando")
 	voteServ := service.NewVoteService(&mongoCon, &rabbitStream)
 
 	router := mux.NewRouter()
