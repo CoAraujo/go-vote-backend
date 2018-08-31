@@ -7,9 +7,8 @@ import (
 
 	client "github.com/coaraujo/go-vote-backend/client/recaptcha"
 	mongo "github.com/coaraujo/go-vote-backend/config/mongo"
-	stream "github.com/coaraujo/go-vote-backend/stream"
-
 	domain "github.com/coaraujo/go-vote-backend/domain"
+	stream "github.com/coaraujo/go-vote-backend/stream"
 )
 
 type VoteService struct {
