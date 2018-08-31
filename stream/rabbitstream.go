@@ -37,9 +37,8 @@ func (r *RabbitStream) SendVote(vote domain.Vote) {
 	err := r.RabbitMQ.GetChannel().Publish(
 		"",           // exchange
 		r.QueueGroup, // routing key
-		// "teste.testando", // routing key
-		false, // mandatory
-		false, // immediate
+		false,        // mandatory
+		false,        // immediate
 		amqp.Publishing{
 			ContentType: "text/plain",
 			Body:        []byte(reqBodyBytes.Bytes()),
