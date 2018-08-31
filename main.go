@@ -5,10 +5,10 @@ import (
 	"log"
 	"net/http"
 
-	mongo "github.com/coaraujo/go-mongo-rabbitmq/config/mongo"
-	rabbit "github.com/coaraujo/go-mongo-rabbitmq/config/rabbit"
-	service "github.com/coaraujo/go-mongo-rabbitmq/service"
-	stream "github.com/coaraujo/go-mongo-rabbitmq/stream"
+	mongo "github.com/coaraujo/go-vote-backend/config/mongo"
+	rabbit "github.com/coaraujo/go-vote-backend/config/rabbit"
+	service "github.com/coaraujo/go-vote-backend/service"
+	stream "github.com/coaraujo/go-vote-backend/stream"
 	"github.com/gorilla/mux"
 )
 

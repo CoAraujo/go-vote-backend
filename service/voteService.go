@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"net/http"
 
-	client "github.com/coaraujo/go-mongo-rabbitmq/client/recaptcha"
-	mongo "github.com/coaraujo/go-mongo-rabbitmq/config/mongo"
-	stream "github.com/coaraujo/go-mongo-rabbitmq/stream"
+	client "github.com/coaraujo/go-vote-backend/client/recaptcha"
+	mongo "github.com/coaraujo/go-vote-backend/config/mongo"
+	stream "github.com/coaraujo/go-vote-backend/stream"
 
-	"github.com/coaraujo/go-mongo-rabbitmq/domain"
+	domain "github.com/coaraujo/go-vote-backend/domain"
 )
 
 type VoteService struct {

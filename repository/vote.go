@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 
-	mongo "github.com/coaraujo/go-mongo-rabbitmq/config/mongo"
-	domain "github.com/coaraujo/go-mongo-rabbitmq/domain"
+	mongo "github.com/coaraujo/go-vote-backend/config/mongo"
+	domain "github.com/coaraujo/go-vote-backend/domain"
 	"gopkg.in/mgo.v2/bson"
 )
 

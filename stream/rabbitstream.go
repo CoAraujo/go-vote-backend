@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"log"
 
-	config "github.com/coaraujo/go-mongo-rabbitmq/config/rabbit"
-	domain "github.com/coaraujo/go-mongo-rabbitmq/domain"
+	config "github.com/coaraujo/go-vote-backend/config/rabbit"
+	domain "github.com/coaraujo/go-vote-backend/domain"
 	"github.com/streadway/amqp"
 )
 
