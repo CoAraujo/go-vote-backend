@@ -15,10 +15,10 @@ import (
 func main() {
 	fmt.Println("[MAIN] Starting project...")
 
-	mongoCon := *mongo.NewConnection()
-	rabbitCon := *rabbit.NewConnection()
-	rabbitStream := *stream.NewRabbitStream(&rabbitCon, "go.vote")
-	voteServ := service.NewVoteService(&mongoCon, &rabbitStream)
+	mongoCon := mongo.NewConnection()
+	rabbitCon := rabbit.NewConnection()
+	rabbitStream := stream.NewRabbitStream(rabbitCon, "go.vote")
+	voteServ := service.NewVoteService(mongoCon, rabbitStream)
 
 	router := mux.NewRouter()
 	router.HandleFunc("/vote", voteServ.SendVote).Methods("POST")
